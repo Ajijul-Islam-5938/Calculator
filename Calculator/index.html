@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body{
+            background: linear-gradient(100deg,rgba(0,100,200,0.8),rgba(255,100,0,1));
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+       .container{
+           width: 90%;
+           height: 95vh;
+           display: flex;
+           justify-content: center;
+           align-items: center;
+       }
+      .calculator{
+          max-width: 435px;
+          min-height: 400px;
+          background: transparent;
+          border: 2px solid rgba(0,0,0,0.5);
+          padding: 15px;
+          border-radius: 15px;
+          box-shadow: 3px 5px 15px rgba(0,0,0,0.5) ;
+      }
+      #display{
+          width: 100%;
+          padding: 30px 10px;
+          margin-bottom: 10px;
+          text-align: right;
+          background: transparent;
+          outline: none;
+          border: none;
+          border-radius:10px;
+          color: #fff;
+          font-weight: 600;
+          font-size: 40px;
+          box-shadow: 3px 5px 15px rgba(0,0,0,0.5) ;
+      }
+      input::placeholder{
+         font-size: 40px;
+         color: #fff;
+         font-weight: 600;
+     }
+    .row{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+    input[type=button],
+    button{
+        width: 100%;
+        height: 50px;
+        margin: 8px;
+        border-radius: 15px;
+        background: transparent;
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: 600;
+    }
+   .btns{
+       margin-top: 15px;
+   }
+  .calculator p{
+      text-align: center;
+      font-family: cursive;
+  }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="calculator">
+            <div class="display">
+                <input type="text" placeholder="0" id="display" readonly>
+            </div>
+            <div class="btns">
+                <div class="row">
+                    <button>AC</button>
+                    <button>DEL</button>
+                    <button>%</button>
+                    <button>/</button>
+                </div>
+                <div class="row">
+                    <button>7</button>
+                    <button>8</button>
+                    <button>9</button>
+                    <button>*</button>
+                </div>
+                <div class="row">
+                    <button>4</button>
+                    <button>5</button>
+                    <button>6</button>
+                    <button>-</button>
+                </div>
+                <div class="row">
+                    <button>1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>+</button>
+                </div>
+                <div class="row">
+                    <button>00</button>
+                    <button>0</button>
+                    <button>.</button>
+                    <input type="button" value="=">
+                </div>
+                 <p>&copy created by ajijul islam</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var btns = document.querySelectorAll('button');
+        var display = document.querySelector('#display');
+        
+        var equal = document.querySelector('input[type=button]');
+        
+        var beep1 = new Audio('Sound/beepKey.mp3');
+        var beepEqual = new Audio('Sound/beepEqual.mp3');
+        var del = new Audio('Sound/del.mp3');
+        var ac = new Audio('Sound/ac.mp3');
+        
+        Array.from(btns).map((btn)=>{
+            btn.addEventListener('click',function(e){
+             if(e.target.innerHTML == 'AC'){
+                 display.value = '';
+                 ac.play();
+             }else if(e.target.innerHTML=='DEL'){
+                display.value = display.value.substring(0, display.value.length -1);
+                del.play();
+             }else{
+                 display.value += e.target.innerHTML;
+                 beep1.play();
+             }
+            });
+        })
+        equal.addEventListener('click',function(e){
+            var result = eval(display.value);
+            display.value = result;
+            beepEqual.play();
+        })
+        
+    </script>
+</body>
+</html>
